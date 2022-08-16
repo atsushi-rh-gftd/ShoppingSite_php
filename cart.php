@@ -32,12 +32,27 @@ foreach($_POST['check'] as $i => $value)
     $_SESSION['cart'] = $arrayMerge;
 }
 
+echo "<form method=\"POST\" action=\"delete_cart.php\">";
+echo "<table border=\"1\">";
 
 foreach($_SESSION['cart'] as $i => $value)
 {
-    echo $value;
-    if($i %3 ==2)
-        echo "<br>";
+    if($i %3 == 0)
+        echo "<tr>";
+    if($i %3 == 0)
+        echo "<td>" . "<input type=\"hidden\" name=\"product[$i]\" value=\"$value\">" .$value . "</td>";
+    if($i %3 == 1)
+        echo "<td>" .  "<input type=\"hidden\" name=\"product_id[$i]\" value=\"$value\">" .$value . "</td>";
+    if($i %3 == 2)
+        echo "<td>" .  "<input type=\"hidden\" name=\"price[$i]\" value=\"$value\">" .$value . "</td>";
+    if($i %3 == 2)
+        echo "<td>" .  "<input type=\"checkbox\" name=\"check[$i]\">" . "削除" . "</td>";
+    if($i %3 == 2)
+        echo "</tr>";
+    
 }
-
+echo "</table>";
+echo "<input type=\"submit\" value=\"カートから商品を消す\">";
+echo  "<input type=\"submit\" value=\"カートから全商品消す\" formaction=\"delete_cart_all.php\">";
+echo "</form>";
 ?>

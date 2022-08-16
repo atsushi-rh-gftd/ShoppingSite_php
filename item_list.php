@@ -8,12 +8,22 @@ session_save_path('/tmp/test01/session');
 	{
         header("Location: index.php");
     }
-	
+	if (isset($_GET['page'])) {
+	$page = (int)$_GET['page'];
+} else {
+	$page = 1;
+}
+if ($page > 1) {
+	// 例：２ページ目の場合は、『(2 × 10) - 10 = 10』
+	$start = ($page * 5) - 5;
+} else {
+	$start = 0;
+}
         /* DB query */
         
         
         $pdo = new PDO($dsn,$db_user,$db_passwd);
-		$stmt = $pdo->prepare("SELECT product_id, product, price FROM item;");
+		$stmt = $pdo->prepare("SELECT product_id, product, price FROM item LIMIT {$start}, 5;");
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 echo "<form method=\"POST\" action=\"cart.php\">";
@@ -30,9 +40,22 @@ echo "<table border=\"1\">";
         echo "<td>" . "<input type=\"checkbox\" name=\"check[$i]\">" ."check!!" . "</td>";
             echo "</tr>";
 	}
+
 echo "</table>";
 echo "<input type=\"submit\" value=\"送信カートへ\">";
-echo "</form>"
+echo "</form>";
+$page_num = $pdo->prepare("
+	SELECT COUNT(*) product_id
+	FROM item
+");
+$page_num->execute();
+$page_num = $page_num->fetchColumn();
 
+// ページネーションの数を取得する
+$pagination = ceil($page_num / 5);
 
 ?>
+
+<?php for ($x=1; $x <= $pagination ; $x++) { ?>
+	<a href="?page=<?php echo $x ?>"><?php echo $x; ?></a>
+<?php } ?>
