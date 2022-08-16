@@ -32,6 +32,7 @@ try {
 <?php
     if($result[0]['password'] == $passwd)
     {
+        session_save_path('/tmp/test01/session');
         session_start();
         $_SESSION['login'] = true;
         header("Location: item_list.php");
