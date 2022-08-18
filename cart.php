@@ -52,7 +52,10 @@ foreach($_SESSION['cart'] as $i => $value)
     
 }
 echo "</table>";
+echo "<input type=\"submit\" value=\"お支払い\" formaction=\"payment.php\">";
 echo "<input type=\"submit\" value=\"カートから商品を消す\">";
 echo  "<input type=\"submit\" value=\"カートから全商品消す\" formaction=\"delete_cart_all.php\">";
+echo "<input type=\"submit\" value=\"商品リストへ\" formaction=\"item_list.php\">";
 echo "</form>";
+
 ?>
