@@ -1,5 +1,5 @@
 <?php
-session_save_path('/tmp/test01/session');
+//session_save_path('/tmp/test01/session');
 session_start();
 session_regenerate_id(true);
 $item =array();
@@ -8,7 +8,7 @@ $arrayMerge = array();
 if(empty($_SESSION['cart']))
 {
     $_SESSION['cart'] = array();
-
+if(isset($_POST['check']))
 foreach($_POST['check'] as $i => $value)
 {
     if(isset($_POST['check'][$i]) && $_POST['check'][$i] == 'on')
@@ -20,6 +20,7 @@ foreach($_POST['check'] as $i => $value)
 }
 }else {
     $arrayMerge = $_SESSION['cart'];
+    if(isset($_POST['check'] ))	
     foreach($_POST['check'] as $i => $value)
     {
      if(isset($_POST['check'][$i]) && $_POST['check'][$i] == 'on')
@@ -29,6 +30,7 @@ foreach($_POST['check'] as $i => $value)
         $arrayMerge = array_values($temp);
     }
     }
+    
     $_SESSION['cart'] = $arrayMerge;
 }
 

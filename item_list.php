@@ -1,5 +1,5 @@
 <?php
-session_save_path('/tmp/test01/session');
+//session_save_path('/tmp/test01/session');
 	session_start();
 	session_regenerate_id(true);
 	$_SESSION['login'];

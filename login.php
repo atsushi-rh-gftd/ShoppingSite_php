@@ -1,12 +1,12 @@
 <?php
-/* login check ...*/
+
 if(empty($_POST['login_id'] && $_POST['login_passwd']))
    header("Location: index.php");
    else {
        /* POST variables into variables */
        $login = $_POST['login_id'];
        $passwd = $_POST['login_passwd'];
-       var_dump($_POST);
+       /*var_dump($_POST); */
 	}
 include_once 'common.php';
 $result;
@@ -21,24 +21,24 @@ try {
     $stmt->bindParam(2, $passwd, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll();
-    var_dump($result);
+    /*var_dump($result); */
     
 }catch (PDOException $error)
 {
     echo $error->getMessage();
 }
 ?>
-
 <?php
     if($result[0]['password'] == $passwd)
     {
-        session_save_path('/tmp/test01/session');
-        session_start();
-        $_SESSION['login'] = true;
-        header("Location: item_list.php");
+	    session_start();
+	    $_SESSION['login'] = true;
+	    header('Location: item_list.php');
+
     }
     else
-        header("Location: index.php");
+	    header('Location: index.php');
+	  
     
 ?>
     
